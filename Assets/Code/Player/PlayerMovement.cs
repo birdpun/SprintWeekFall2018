@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        rb.AddForce(transform.forward * moveSpeed);
+        rb.AddForce(transform.forward * move);
         //transform.Translate(Vector3.forward * move * Time.deltaTime);
     }
 }
