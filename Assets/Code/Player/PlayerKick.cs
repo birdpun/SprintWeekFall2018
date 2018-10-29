@@ -52,7 +52,7 @@ public class PlayerKick : MonoBehaviour
         Rigidbody rigidbody = player.GetComponent<Rigidbody>();
         float speed = GetComponent<Rigidbody>().velocity.magnitude;
         float knockback = 1 - (player.health / 100f);
-        if (knockback < 0.2f) knockback = 0.2f;
+        if (knockback < 0.4f) knockback = 0.4f;
 
         Vector3 direction = (player.transform.position - transform.position).normalized * speed * knockbackMultiplier * knockback;
         rigidbody.velocity = direction;

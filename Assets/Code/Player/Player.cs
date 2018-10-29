@@ -51,11 +51,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float timeOutsideTheRink;
     private Vector2 originalPosition;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+
         originalPosition = transform.position;
 
         Spawn();
@@ -76,24 +78,6 @@ public class Player : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
-    private void Update()
-    {
-        if (IsOnRink)
-        {
-            timeOutsideTheRink = 0f;
-        }
-        else
-        {
-            timeOutsideTheRink += Time.deltaTime;
-        }
-
-        //if the player was outside the rink for longer than 3 seconds, then respawn
-        if (timeOutsideTheRink > respawnDuration)
-        {
-            Spawn();
-        }
-    }
-
     public void Damage()
     {
         health -= 10f;
@@ -104,9 +88,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Vector3 euler = transform.localEulerAngles;
+        euler.z = 0f;
+        transform.localEulerAngles = euler;
+    }
+
     private void OnGUI()
     {
         Vector3 position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         GUI.Label(new Rect(position.x, Screen.height - position.y, 200, 200), health.ToString());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Water")
+        {
+            Spawn();
+        }
     }
 }

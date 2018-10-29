@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public LayerMask layerMask;
+
     public float moveSpeed = 1f;
     public float steerSpeed = 1f;
     public float acceleration = 1f;
-    public float deceleration = 1f;
+    public float deceleration = 0.15f;
 
     private float steer = 0f;
     private float move = 0f;
 
     private bool wasOnRink;
+    private bool isGrounded;
 
     private Player player;
     private Rigidbody rb;
+
+    public bool Grounded
+    {
+        get
+        {
+            return isGrounded;
+        }
+    }
 
     private void Awake()
     {
@@ -25,18 +36,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2f, layerMask);
+
         //cache the inputs
 
         //slowly lerp the steer amount towards the desired steer
         bool isSteering = player.Steer != 0;
-        float lerp = isSteering ? acceleration : deceleration;
+        float lerp = isSteering ? acceleration : 10000f;
 
         //lerp
         steer = Mathf.Lerp(steer, player.Steer, Time.deltaTime * lerp);
 
         //slowly lerp the movement amount
         bool wantsToMove = player.Move;
-        lerp = wantsToMove ? acceleration : deceleration;
+        lerp = wantsToMove ? acceleration : 10000f;
         float speed = wantsToMove ? moveSpeed : 0;
 
         //lerp
@@ -45,8 +58,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isGrounded)
+        {
+            rb.AddForce(Physics.gravity);
+        }
+
         Steer();
-        Move();
+        if (isGrounded) Move();
 
         //if the player is on the rink, ensure that the player can only rotate on the y axis
         if (player.IsOnRink)
@@ -78,13 +96,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        //if the player is off the rink, then apply drag
-        if (!player.IsOnRink)
+        if (!player.Move && isGrounded)
         {
             Vector3 velocity = rb.velocity;
-            velocity *= 0.75f;
+            velocity *= (1f - deceleration);
             velocity.y = rb.velocity.y;
-            //rb.velocity = velocity;
+            rb.velocity = velocity;
             return;
         }
 

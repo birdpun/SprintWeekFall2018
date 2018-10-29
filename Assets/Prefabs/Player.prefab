@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 33581157090707568}
   - component: {fileID: 23797719275636104}
   - component: {fileID: 64086641517530722}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Prototype basic sled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170751064106862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.14, y: 0.3, z: 0}
+  m_LocalPosition: {x: 7.85, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4439605860821856}
@@ -169,9 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3fbe24148f1e34baa9698b9c41bc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left: 97
-  right: 100
-  move: 119
+  left: 276
+  right: 275
+  move: 273
   health: 100
   respawnDuration: 3
 --- !u!114 &114673877983519044
@@ -185,6 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636fc8b6114a3054681e2c3f1be064bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   moveSpeed: 40
   steerSpeed: 200
   acceleration: 20
