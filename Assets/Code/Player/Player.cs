@@ -10,9 +10,8 @@ public class Player : MonoBehaviour
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
     public KeyCode move = KeyCode.W;
-
-    public float health = 100f;
-    public float respawnDuration = 3f;
+    
+    public float respawnDuration = 1f;
 
     [ColorUsage(false)]
     public Color playerColor = Color.white;
@@ -70,9 +69,6 @@ public class Player : MonoBehaviour
 
     private void Spawn()
     {
-        //reset health
-        health = 100f;
-
         //reset position and rotation
         transform.position = originalPosition;
         transform.localEulerAngles = Vector3.zero;
@@ -81,16 +77,6 @@ public class Player : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.angularVelocity = Vector3.zero;
         rigidbody.velocity = Vector3.zero;
-    }
-
-    public void Damage()
-    {
-        health -= 10f;
-
-        if (health < 0f)
-        {
-            health = 0f;
-        }
     }
 
     private void Update()
@@ -109,18 +95,13 @@ public class Player : MonoBehaviour
         transform.localEulerAngles = euler;
     }
 
-    private void OnGUI()
-    {
-        Vector3 position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-        GUI.Label(new Rect(position.x, Screen.height - position.y, 200, 200), health.ToString());
-    }
-
     private async void OnTriggerEnter(Collider other)
     {
         //if hit water, wait 1 seconds and then respawn
         if (other.name == "Water")
         {
-            await Task.Delay(1000);
+            int ms = Mathf.RoundToInt(respawnDuration * 1000f);
+            await Task.Delay(ms);
 
             //this check happens when exiting to edit mode
             if (!this) return;
