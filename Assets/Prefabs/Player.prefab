@@ -56,13 +56,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170751064106862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.85, y: 0.87, z: 0}
+  m_LocalPosition: {x: -8.14, y: 0.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4439605860821856}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -24.32}
 --- !u!4 &4439605860821856
 Transform:
   m_ObjectHideFlags: 1
@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 1906352434710158}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: -0.005, z: 0}
-  m_LocalScale: {x: 0.49294403, y: 0.7810087, z: 0.050888833}
+  m_LocalScale: {x: 49.2944, y: 78.10087, z: 5.088883}
   m_Children: []
   m_Father: {fileID: 4057103429101618}
   m_RootOrder: 0
@@ -117,7 +117,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906352434710158}
-  m_Mesh: {fileID: 4300002, guid: 8ad5b30c2f5c6094cbb7b8948ea82fe3, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 53f48655ce90a8f42a3acedd2e5421d3, type: 3}
 --- !u!54 &54112963982060382
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -143,10 +143,10 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300002, guid: 8ad5b30c2f5c6094cbb7b8948ea82fe3, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 53f48655ce90a8f42a3acedd2e5421d3, type: 3}
 --- !u!114 &114450897384674250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,12 +169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3fbe24148f1e34baa9698b9c41bc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left: 276
-  right: 275
-  move: 273
-  health: 100
+  left: 97
+  right: 100
+  move: 119
   respawnDuration: 1
-  playerColor: {r: 0, g: 0.42918253, b: 1, a: 1}
+  playerColor: {r: 1, g: 0.11802037, b: 0, a: 1}
 --- !u!114 &114673877983519044
 MonoBehaviour:
   m_ObjectHideFlags: 1

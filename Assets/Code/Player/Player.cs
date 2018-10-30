@@ -7,11 +7,10 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Player : MonoBehaviour
 {
+    public PlayerSettings settings;
+
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
-    public KeyCode move = KeyCode.W;
-
-    public float respawnDuration = 1f;
 
     [ColorUsage(false)]
     public Color playerColor = Color.white;
@@ -26,14 +25,6 @@ public class Player : MonoBehaviour
             if (Input.GetKey(right)) steer += 1;
 
             return steer;
-        }
-    }
-
-    public bool Move
-    {
-        get
-        {
-            return Input.GetKey(move);
         }
     }
 
@@ -95,7 +86,7 @@ public class Player : MonoBehaviour
         //if hit water, wait 1 seconds and then respawn
         if (other.name == "Water")
         {
-            int ms = Mathf.RoundToInt(respawnDuration * 1000f);
+            int ms = Mathf.RoundToInt(settings.respawnDuration * 1000f);
             await Task.Delay(ms);
 
             //this check happens when exiting to edit mode

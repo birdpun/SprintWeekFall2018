@@ -6,11 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public LayerMask layerMask;
 
-    public float moveSpeed = 1f;
-    public float steerSpeed = 1f;
-    public float acceleration = 1f;
-    public float deceleration = 0.15f;
-
     private float steer = 0f;
     private float move = 0f;
 
@@ -42,18 +37,14 @@ public class PlayerMovement : MonoBehaviour
 
         //slowly lerp the steer amount towards the desired steer
         bool isSteering = player.Steer != 0;
-        float lerp = isSteering ? acceleration : 10000f;
+        float lerp = isSteering ? player.settings.steerAcceleration : player.settings.steerDeceleration;
 
         //lerp
         steer = Mathf.Lerp(steer, player.Steer, Time.deltaTime * lerp);
 
         //slowly lerp the movement amount
         bool wantsToMove = true;// player.Move;
-        lerp = wantsToMove ? acceleration : 10000f;
-        float speed = wantsToMove ? moveSpeed : 0;
-
-        //lerp
-        move = Mathf.Lerp(move, speed, Time.deltaTime * lerp);
+        lerp = wantsToMove ? player.settings.moveAcceleration : 10000f;
     }
 
     private void FixedUpdate()
@@ -70,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void Steer()
     {
         //rotate
-        transform.Rotate(Vector3.up, steer * steerSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, steer * player.settings.steerSpeed * Time.deltaTime);
     }
 
     private void Move()
@@ -84,7 +75,8 @@ public class PlayerMovement : MonoBehaviour
         //    return;
         //}
 
-        rb.AddForce(transform.forward * moveSpeed);
+        float speed = player.settings.moveSpeed - new Vector3(rb.velocity.x, 0f, rb.velocity.z).magnitude * player.settings.moveAcceleration;
+        rb.AddForce(transform.forward * speed);
         //transform.Translate(Vector3.forward * move * Time.deltaTime);
     }
 }
