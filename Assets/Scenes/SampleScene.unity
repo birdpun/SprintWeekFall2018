@@ -504,6 +504,31 @@ Prefab:
       propertyPath: steerSpeed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 23797719275636104, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7d189b0da9d90e48a4ae82cd3b90361, type: 2}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.g
+      value: 0.42918253
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114738830957057356, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: knockbackMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
   m_IsPrefabAsset: 0
@@ -874,11 +899,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4057103429101618, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.21064237
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4057103429101618, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9775632
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4057103429101618, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
       propertyPath: m_RootOrder
@@ -891,12 +916,12 @@ Prefab:
     - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
         type: 2}
       propertyPath: left
-      value: 97
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
         type: 2}
       propertyPath: right
-      value: 100
+      value: 323
       objectReference: {fileID: 0}
     - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
         type: 2}
@@ -941,6 +966,31 @@ Prefab:
     - target: {fileID: 4057103429101618, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -24.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 23797719275636104, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c7d189b0da9d90e48a4ae82cd3b90361, type: 2}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.g
+      value: 0.11802037
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: playerColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114738830957057356, guid: ca4948300e684074fb48eaf3fc2f133f,
+        type: 2}
+      propertyPath: knockbackMultiplier
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}

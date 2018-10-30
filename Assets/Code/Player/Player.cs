@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Player : MonoBehaviour
 {
     public KeyCode left = KeyCode.A;
@@ -11,6 +12,9 @@ public class Player : MonoBehaviour
 
     public float health = 100f;
     public float respawnDuration = 3f;
+
+    [ColorUsage(false)]
+    public Color playerColor = Color.white;
 
     public bool IsOnRink
     {
@@ -90,6 +94,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        //set color
+        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
+        MaterialPropertyBlock block = new MaterialPropertyBlock();
+        meshRenderer.GetPropertyBlock(block);
+        block.SetColor("_Color", playerColor);
+        block.SetColor("_EmissionColor", playerColor * 0.5f);
+        meshRenderer.SetPropertyBlock(block);
+
+        //set rotation
         Vector3 euler = transform.localEulerAngles;
         euler.z = 0f;
         transform.localEulerAngles = euler;

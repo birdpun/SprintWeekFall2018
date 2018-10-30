@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         steer = Mathf.Lerp(steer, player.Steer, Time.deltaTime * lerp);
 
         //slowly lerp the movement amount
-        bool wantsToMove = player.Move;
+        bool wantsToMove = true;// player.Move;
         lerp = wantsToMove ? acceleration : 10000f;
         float speed = wantsToMove ? moveSpeed : 0;
 
@@ -96,16 +96,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (!player.Move && isGrounded)
-        {
-            Vector3 velocity = rb.velocity;
-            velocity *= (1f - deceleration);
-            velocity.y = rb.velocity.y;
-            rb.velocity = velocity;
-            return;
-        }
+        //if (!player.Move && isGrounded)
+        //{
+        //    Vector3 velocity = rb.velocity;
+        //    velocity *= (1f - deceleration);
+        //    velocity.y = rb.velocity.y;
+        //    rb.velocity = velocity;
+        //    return;
+        //}
 
-        rb.AddForce(transform.forward * move);
+        rb.AddForce(transform.forward * moveSpeed);
         //transform.Translate(Vector3.forward * move * Time.deltaTime);
     }
 }
