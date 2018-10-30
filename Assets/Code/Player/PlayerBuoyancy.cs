@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBuoyancy : MonoBehaviour
 {
+    //private comment
     private Rigidbody rb;
 
     private void Awake()
