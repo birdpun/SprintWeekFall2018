@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -114,10 +115,16 @@ public class Player : MonoBehaviour
         GUI.Label(new Rect(position.x, Screen.height - position.y, 200, 200), health.ToString());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
+        //if hit water, wait 1 seconds and then respawn
         if (other.name == "Water")
         {
+            await Task.Delay(1000);
+
+            //this check happens when exiting to edit mode
+            if (!this) return;
+
             Spawn();
         }
     }
