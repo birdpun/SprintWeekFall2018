@@ -95,4 +95,45 @@ public class Player : MonoBehaviour
             Spawn();
         }
     }
+
+    public float low = 0f;
+    public float high = 1f;
+    public float amp = 100f;
+    public int duration = 1;
+
+    private void OnGUI()
+    {
+        if (!JoyconManager.Instance) return;
+
+        string text = "";
+        var joycon = JoyconManager.Instance.j;
+
+        text += joycon.GetGyro();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Beat();
+        }
+
+        var position = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        var textSize = GUI.skin.label.CalcSize(new GUIContent(text));
+        GUI.Label(new Rect(position.x, Screen.height - position.y, textSize.x, textSize.y), text);
+    }
+
+    private async void Beat()
+    {
+        if (!JoyconManager.Instance) return;
+        var joycon = JoyconManager.Instance.j;
+
+        joycon.SetRumble(low, high, amp, duration);
+
+        await Task.Delay(duration);
+        await Task.Delay(30);
+
+        joycon.SetRumble(low, high, amp, duration);
+
+        await Task.Delay(duration);
+        await Task.Delay(30);
+
+        joycon.SetRumble(low, high, amp, duration);
+    }
 }
