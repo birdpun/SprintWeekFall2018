@@ -15,7 +15,7 @@ public class PlayerBuoyancy : MonoBehaviour
     private void FixedUpdate()
     {
         //if the object is below the water level
-        //add upwards force
+        //add upwards force to mimic buoyancy
         if (transform.position.y < 0)
         {
             rb.AddForce(Physics.gravity * -1.5f);

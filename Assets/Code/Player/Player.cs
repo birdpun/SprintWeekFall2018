@@ -10,29 +10,11 @@ public class Player : MonoBehaviour
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
     public KeyCode move = KeyCode.W;
-    
+
     public float respawnDuration = 1f;
 
     [ColorUsage(false)]
     public Color playerColor = Color.white;
-
-    public bool IsOnRink
-    {
-        get
-        {
-            Transform rink = GameObject.Find("Rink").transform;
-            float rinkRadius = rink.localScale.x * 0.5f;
-            float squaredDistance = (new Vector2(rink.position.x, rink.position.z) - new Vector2(transform.position.x, transform.position.z)).sqrMagnitude;
-            if (squaredDistance < rinkRadius * rinkRadius)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
 
     public float Steer
     {
@@ -56,11 +38,11 @@ public class Player : MonoBehaviour
     }
 
     private Vector2 originalPosition;
-    private PlayerMovement playerMovement;
+    private PlayerMovement movement;
 
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        movement = GetComponent<PlayerMovement>();
 
         originalPosition = transform.position;
 
@@ -79,20 +61,33 @@ public class Player : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
-    private void Update()
+    private void SetColor()
     {
-        //set color
+        //change color of material without instancing a new one
+
         MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
         MaterialPropertyBlock block = new MaterialPropertyBlock();
         meshRenderer.GetPropertyBlock(block);
         block.SetColor("_Color", playerColor);
         block.SetColor("_EmissionColor", playerColor * 0.5f);
         meshRenderer.SetPropertyBlock(block);
+    }
 
-        //set rotation
+    private void SetRotation()
+    {
+        //force x rotation to be 0
+
         Vector3 euler = transform.localEulerAngles;
         euler.z = 0f;
         transform.localEulerAngles = euler;
+    }
+
+    private void Update()
+    {
+        SetColor();
+
+        //only process rotation if grounded
+        if (movement.Grounded) SetRotation();
     }
 
     private async void OnTriggerEnter(Collider other)

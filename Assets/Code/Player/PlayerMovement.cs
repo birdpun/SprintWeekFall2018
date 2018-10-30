@@ -65,27 +65,6 @@ public class PlayerMovement : MonoBehaviour
 
         Steer();
         if (isGrounded) Move();
-
-        //if the player is on the rink, ensure that the player can only rotate on the y axis
-        if (player.IsOnRink)
-        {
-            wasOnRink = true;
-            //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        }
-        else
-        {
-            //if the player is off the rink, let the player rotate freely
-            //rb.constraints = RigidbodyConstraints.None;
-
-            if (wasOnRink)
-            {
-                //the player just felloff the rink
-                //add some angular velocity for effect
-                wasOnRink = false;
-
-                rb.angularVelocity = rb.velocity;
-            }
-        }
     }
 
     private void Steer()
