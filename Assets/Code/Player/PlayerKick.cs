@@ -7,8 +7,7 @@ public class PlayerKick : MonoBehaviour
 {
     public float maxDistance = 0.5f;
     public float knockbackMultiplier = 1f;
-
-    private RaycastHit[] results = new RaycastHit[5];
+    
     private float nextKnockback;
 
     private void Update()
@@ -42,6 +41,7 @@ public class PlayerKick : MonoBehaviour
                 if (player && player.transform != transform)
                 {
                     Knockback(player);
+                    nextKnockback = Time.time + 1f;
                 }
             }
         }
@@ -54,7 +54,5 @@ public class PlayerKick : MonoBehaviour
 
         Vector3 direction = (player.transform.position - transform.position).normalized * speed * knockbackMultiplier;
         rigidbody.velocity = direction;
-
-        nextKnockback = Time.time + 1f;
     }
 }
