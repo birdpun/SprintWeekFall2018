@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
 
         if (GameManager.State == GameState.Waiting)
         {
-            transform.position = Vector3.Lerp(transform.position, waitingPosition, Time.fixedDeltaTime * 3f);
+            transform.position = waitingPosition;
             transform.eulerAngles = new Vector3(21f, 0f, 0f);
             blur.interpolation = 1f;
         }
