@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Vector2 originalPosition;
+    private Vector3 originalPosition;
     private PlayerMovement movement;
 
     private void Awake()
