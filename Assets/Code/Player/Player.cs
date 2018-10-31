@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        steer = Mathf.Sign(steer) * 0.5f;
+                        steer = Mathf.Sign(steer) * 1f;
                     }
                 }
 
