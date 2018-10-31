@@ -8,8 +8,15 @@ using System;
 using System.Threading;
 using UnityEngine;
 
+[Serializable]
 public class Joycon
 {
+    public enum JoyconType
+    {
+        Left,
+        Right
+    }
+
     public enum DebugType : int
     {
         NONE,
@@ -51,7 +58,7 @@ public class Joycon
     private bool[] buttons_up = new bool[13];
     private bool[] buttons = new bool[13];
     private bool[] down_ = new bool[13];
-
+    
     private float[] stick = { 0, 0 };
 
     private
@@ -77,6 +84,8 @@ public class Joycon
     private bool do_localize;
     private float filterweight;
     private const uint report_len = 49;
+
+    [Serializable]
     private struct Report
     {
         byte[] r;
@@ -98,6 +107,8 @@ public class Joycon
             }
         }
     };
+
+    [Serializable]
     private struct Rumble
     {
         private float h_f, amp, l_f;
@@ -205,6 +216,7 @@ public class Joycon
         filterweight = alpha;
         isLeft = left;
     }
+
     public void DebugPrint(String s, DebugType d)
     {
         if (debug_type == DebugType.NONE) return;
@@ -213,43 +225,172 @@ public class Joycon
             Debug.Log(s);
         }
     }
+
     public bool GetButtonDown(Button b)
     {
         return buttons_down[(int)b];
     }
+
     public bool GetButton(Button b)
     {
         return buttons[(int)b];
     }
+
     public bool GetButtonUp(Button b)
     {
         return buttons_up[(int)b];
     }
-    public float[] GetStick()
+    
+    public bool DPadLeft
     {
-        return stick;
-    }
-    public Vector3 GetGyro()
-    {
-        return gyr_g;
-    }
-    public Vector3 GetAccel()
-    {
-        return acc_g;
-    }
-    public Quaternion GetVector()
-    {
-        Vector3 v1 = new Vector3(j_b.x, i_b.x, k_b.x);
-        Vector3 v2 = -(new Vector3(j_b.z, i_b.z, k_b.z));
-        if (v2 != Vector3.zero)
+        get
         {
-            return Quaternion.LookRotation(v1, v2);
-        }
-        else
-        {
-            return Quaternion.identity;
+            return GetButton(Button.DPAD_LEFT);
         }
     }
+
+    public bool DPadRight
+    {
+        get
+        {
+            return GetButton(Button.DPAD_RIGHT);
+        }
+    }
+
+    public bool DPadUp
+    {
+        get
+        {
+            return GetButton(Button.DPAD_UP);
+        }
+    }
+
+    public bool DPadDown
+    {
+        get
+        {
+            return GetButton(Button.DPAD_DOWN);
+        }
+    }
+
+    public bool Y
+    {
+        get
+        {
+            return GetButton(Button.DPAD_LEFT);
+        }
+    }
+
+    public bool A
+    {
+        get
+        {
+            return GetButton(Button.DPAD_RIGHT);
+        }
+    }
+
+    public bool X
+    {
+        get
+        {
+            return GetButton(Button.DPAD_UP);
+        }
+    }
+
+    public bool B
+    {
+        get
+        {
+            return GetButton(Button.DPAD_DOWN);
+        }
+    }
+
+    public JoyconType Type
+    {
+        get
+        {
+            return isLeft ? JoyconType.Left : JoyconType.Right;
+        }
+    }
+
+    public float[] Stick
+    {
+        get
+        {
+            return stick;
+        }
+    }
+
+    public Vector3 Gyro
+    {
+        get
+        {
+            return gyr_g;
+        }
+    }
+
+    public Vector3 Acceleration
+    {
+        get
+        {
+            return acc_g;
+        }
+    }
+
+    public Vector3 Euler
+    {
+        get
+        {
+            Vector3 euler = new Vector3();
+            euler.x = Vector3.Angle(Vector3.right, Rotation * Vector3.right);
+            euler.y = Vector3.Angle(Vector3.up, Rotation * Vector3.up);
+            euler.z = Vector3.Angle(Vector3.forward, Rotation * Vector3.forward);
+
+            return euler;
+        }
+    }
+
+    public Vector3 Up
+    {
+        get
+        {
+            return Rotation * Vector3.up;
+        }
+    }
+
+    public Vector3 Forward
+    {
+        get
+        {
+            return Rotation * Vector3.forward;
+        }
+    }
+
+    public Vector3 Right
+    {
+        get
+        {
+            return Rotation * Vector3.right;
+        }
+    }
+
+    public Quaternion Rotation
+    {
+        get
+        {
+            Vector3 v1 = new Vector3(j_b.x, i_b.x, k_b.x);
+            Vector3 v2 = -(new Vector3(j_b.z, i_b.z, k_b.z));
+            if (v2 != Vector3.zero)
+            {
+                return Quaternion.LookRotation(v1, v2);
+            }
+            else
+            {
+                return Quaternion.identity;
+            }
+        }
+    }
+
     public int Attach(byte leds_ = 0x0)
     {
         state = state_.ATTACHED;
