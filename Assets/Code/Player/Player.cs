@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Player : MonoBehaviour
 {
     public PlayerSettings settings;
 
     public int joyconIndex = 0;
+    public int lives = 0;
 
     [ColorUsage(false)]
     public Color playerColor = Color.white;
@@ -62,14 +64,43 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
-
         originalPosition = transform.position;
 
+        Reset();
+    }
+
+    public void Reset()
+    {
+        lives = settings.lives + 1;
         Spawn();
     }
 
     private void Spawn()
     {
+        //dont respawn if celebrating
+        if (GameManager.State == GameState.Celebrating) return;
+
+        //this player ran out of lives
+        //end the game
+        if (lives == 0)
+        {
+            //find the player with the most lives
+            int minLives = int.MinValue;
+            Player winner = null;
+            Player[] allPlayers = FindObjectsOfType<Player>();
+            for (int i = 0; i < allPlayers.Length; i++)
+            {
+                if (allPlayers[i].lives > minLives)
+                {
+                    minLives = allPlayers[i].lives;
+                    winner = allPlayers[i];
+                }
+            }
+
+            GameManager.Celebrate(winner);
+            return;
+        }
+
         //reset position and rotation
         transform.position = originalPosition;
         transform.localEulerAngles = Vector3.zero;
@@ -78,9 +109,21 @@ public class Player : MonoBehaviour
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.angularVelocity = Vector3.zero;
         rigidbody.velocity = Vector3.zero;
+
+
+        //dont subtract lives if not in play mode
+        if (GameManager.State != GameState.Playing) return;
+
+        lives--;
     }
 
-    public async void Knocked()
+    public void ShakeSingle()
+    {
+        var joycon = JoyconManager.Joycons[joyconIndex];
+        joycon.SetRumble(settings.low, settings.high, settings.amp, 300);
+    }
+
+    public async void Shake()
     {
         var joycon = JoyconManager.Joycons[joyconIndex];
 
@@ -118,7 +161,6 @@ public class Player : MonoBehaviour
         transform.localEulerAngles = euler;
     }
 
-    [ExecuteInEditMode]
     private void Update()
     {
         SetColor();
@@ -132,9 +174,12 @@ public class Player : MonoBehaviour
 
     private async void OnTriggerEnter(Collider other)
     {
+        if (GameManager.State == GameState.Starting) return;
+
         //if hit water, wait 1 seconds and then respawn
         if (other.name == "Water")
         {
+            Shake();
             int ms = Mathf.RoundToInt(settings.respawnDuration * 1000f);
             await Task.Delay(ms);
 

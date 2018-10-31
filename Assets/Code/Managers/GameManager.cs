@@ -1,112 +1,199 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+
+public enum GameState
+{
+    Waiting,
+    Starting,
+    Playing,
+    Celebrating
+}
 
 public class GameManager : MonoBehaviour
 {
-    private Material material;
-    private Mesh mesh;
+    private static GameManager instance;
 
-    private void Awake()
+    public GameObject waiting;
+    public GameObject playing;
+    public GameObject celebrating;
+    public GameObject pause;
+
+    private bool paused;
+    private GameState state = GameState.Waiting;
+    private Player winner;
+
+    public static bool Paused
     {
-        material = new Material(Shader.Find("Standard"));
-        mesh = CreateCube();
-    }
-
-    private Mesh CreateCube()
-    {
-        Vector3[] vertices =
+        get
         {
-            new Vector3 (0, 0, 0),
-            new Vector3 (1, 0, 0),
-            new Vector3 (1, 1, 0),
-            new Vector3 (0, 1, 0),
-            new Vector3 (0, 1, 1),
-            new Vector3 (1, 1, 1),
-            new Vector3 (1, 0, 1),
-            new Vector3 (0, 0, 1),
-        };
+            if (!instance) instance = FindObjectOfType<GameManager>();
 
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            vertices[i] -= Vector3.one * 0.5f;
+            return instance.paused;
         }
-
-        int[] triangles = 
+        set
         {
-            0, 2, 1, //face front
-			0, 3, 2,
-            2, 3, 4, //face top
-			2, 4, 5,
-            1, 2, 5, //face right
-			1, 5, 6,
-            0, 7, 4, //face left
-			0, 4, 3,
-            5, 4, 7, //face back
-			5, 7, 6,
-            0, 6, 7, //face bottom
-			0, 1, 6
-        };
+            if (!instance) instance = FindObjectOfType<GameManager>();
 
-        Mesh mesh = new Mesh();
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
-
-        return mesh;
+            instance.paused = value;
+        }
     }
 
-    private void OnGUI()
+    public static GameState State
     {
-        for (int i = 0; i < JoyconManager.Joycons.Count; i++)
+        get
         {
-            Joycon joycon = JoyconManager.Joycons[i];
+            if (!instance) instance = FindObjectOfType<GameManager>();
 
-            GUILayout.Label("joycon " + i.ToString());
-            GUILayout.Label("\tType: " + joycon.Type);
-            if (joycon.isLeft)
-            {
-                GUILayout.Label("\tLeft: " + joycon.DPadLeft);
-                GUILayout.Label("\tRight: " + joycon.DPadRight);
-                GUILayout.Label("\tUp: " + joycon.DPadUp);
-                GUILayout.Label("\tDown: " + joycon.DPadDown);
-            }
-            else
-            {
-                GUILayout.Label("\tY: " + joycon.Y);
-                GUILayout.Label("\tA: " + joycon.A);
-                GUILayout.Label("\tX: " + joycon.X);
-                GUILayout.Label("\tB: " + joycon.B);
-            }
-            GUILayout.Label("\tAccel: " + joycon.Acceleration);
-            GUILayout.Label("\tGyro: " + joycon.Gyro);
-            GUILayout.Label("\tVector: " + joycon.Rotation.eulerAngles);
+            return instance.state;
+        }
+        set
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
 
-            float a = Vector3.Angle(Vector3.forward, joycon.Rotation * Vector3.forward);
-            a -= 90f;
+            instance.state = value;
+        }
+    }
 
-            GUILayout.Label("\tAngle: " + joycon.Euler.z);
+    public static Player Winner
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            if (State != GameState.Celebrating) return null;
+
+            return instance.winner;
+        }
+    }
+
+    public static int CountdownSecond
+    {
+        get; set;
+    }
+
+    public static async void Celebrate(Player winner)
+    {
+        if (!instance) instance = FindObjectOfType<GameManager>();
+
+        instance.winner = winner;
+        State = GameState.Celebrating;
+        Time.timeScale = 0.4f;
+
+        //8 seconds later, go back to wait state
+        await Task.Delay(8000);
+
+        Time.timeScale = 1f;
+        State = GameState.Waiting;
+
+        //reset players
+        ResetPlayers();
+    }
+
+    public static void ResetPlayers()
+    {
+        Player[] allPlayers = FindObjectsOfType<Player>();
+        for (int i = 0; i < allPlayers.Length; i++)
+        {
+            allPlayers[i].Reset();
         }
     }
 
     private void Update()
     {
-        float size = 1.25f;
-        Vector3 start = Vector3.left * JoyconManager.Joycons.Count * -0.5f * size;
-        Vector3 end = Vector3.left * JoyconManager.Joycons.Count * 0.5f * size;
-
-        for (int i = 0; i < JoyconManager.Joycons.Count; i++)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            Joycon joycon = JoyconManager.Joycons[i];
-            float t = i / (float)(JoyconManager.Joycons.Count - 1);
-            Vector3 position = Vector3.Lerp(start, end, t);
-
-            Graphics.DrawMesh(mesh, position, joycon.Rotation, material, 0);
-
-            Debug.DrawRay(position, joycon.Right, Color.red);
-            Debug.DrawRay(position, joycon.Up, Color.green);
-            Debug.DrawRay(position, joycon.Forward, Color.blue);
+            ShakeAll();
         }
+
+        ProcessWaiting();
+        ProcessPause();
+
+        if (waiting) waiting.SetActive(State == GameState.Waiting);
+        if (playing) playing.SetActive(State == GameState.Playing);
+        if (celebrating) celebrating.SetActive(State == GameState.Celebrating);
+        if (pause) pause.SetActive(Paused);
+    }
+
+    private void ProcessWaiting()
+    {
+        if (State != GameState.Waiting) return;
+
+        bool wantsToPlay = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space);
+        if (!wantsToPlay)
+        {
+            bool allPressingX = true;
+            for (int i = 0; i < JoyconManager.Joycons.Count; i++)
+            {
+                if (JoyconManager.Joycons[i].Type == Joycon.JoyconType.Left) continue;
+
+                if (!JoyconManager.Joycons[i].X)
+                {
+                    allPressingX = false;
+                    break;
+                }
+            }
+
+            if (allPressingX)
+            {
+                wantsToPlay = true;
+            }
+        }
+        if (wantsToPlay)
+        {
+            Paused = false;
+            State = GameState.Starting;
+
+            //reset players
+            ResetPlayers();
+
+            StartCountdown(5);
+        }
+    }
+
+    public static void ShakeAll()
+    {
+        foreach (var joycon in JoyconManager.Joycons)
+        {
+            joycon.SetRumble(0f, 1f, 100f, 200);
+        }
+    }
+
+    private async void StartCountdown(int seconds)
+    {
+        CountdownSecond = seconds;
+        for (int i = 0; i < seconds; i++)
+        {
+            ShakeAll();
+            await Task.Delay(1000);
+            CountdownSecond--;
+        }
+
+        CountdownSecond = 0;
+        State = GameState.Playing;
+    }
+
+    private void ProcessPause()
+    {
+        if (State != GameState.Playing) return;
+
+        bool wantsToPause = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape);
+        if (!wantsToPause)
+        {
+            for (int i = 0; i < JoyconManager.Joycons.Count; i++)
+            {
+                if (JoyconManager.Joycons[i].Home || JoyconManager.Joycons[i].Capture)
+                {
+                    wantsToPause = true;
+                }
+            }
+        }
+        if (wantsToPause)
+        {
+            Paused = !Paused;
+        }
+
+        Time.timeScale = Paused ? 0.00001f : 1f;
     }
 }

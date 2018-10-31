@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerSettings : ScriptableObject
 {
     public float respawnDuration = 1f;
+    public int lives = 5;
 
     public float moveSpeed = 1f;
     public float moveAcceleration = 1f;

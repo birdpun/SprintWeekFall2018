@@ -305,6 +305,22 @@ public class Joycon
         }
     }
 
+    public bool Capture
+    {
+        get
+        {
+            return GetButtonDown(Button.CAPTURE);
+        }
+    }
+
+    public bool Home
+    {
+        get
+        {
+            return GetButtonDown(Button.HOME);
+        }
+    }
+
     public JoyconType Type
     {
         get

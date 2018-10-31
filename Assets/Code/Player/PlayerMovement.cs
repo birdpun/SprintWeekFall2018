@@ -66,6 +66,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        if (GameManager.State == GameState.Starting)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         //if (!player.Move && isGrounded)
         //{
         //    Vector3 velocity = rb.velocity;
