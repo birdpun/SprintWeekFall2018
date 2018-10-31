@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
 {
     public PlayerSettings settings;
 
-    public KeyCode left = KeyCode.A;
-    public KeyCode right = KeyCode.D;
+    public int joyconIndex = 0;
 
     [ColorUsage(false)]
     public Color playerColor = Color.white;
@@ -19,11 +18,8 @@ public class Player : MonoBehaviour
     {
         get
         {
-            float steer = 0f;
-
-            if (Input.GetKey(left)) steer -= 1;
-            if (Input.GetKey(right)) steer += 1;
-
+            float steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
+            steer = Mathf.Clamp(steer * 5f, -1f, 1f);
             return steer;
         }
     }
