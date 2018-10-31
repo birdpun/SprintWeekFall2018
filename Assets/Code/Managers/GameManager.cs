@@ -4,52 +4,109 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private Vector3[] velocities = { };
-    private Vector3[] lastVectors = { };
+    private Material material;
+    private Mesh mesh;
+
+    private void Awake()
+    {
+        material = new Material(Shader.Find("Standard"));
+        mesh = CreateCube();
+    }
+
+    private Mesh CreateCube()
+    {
+        Vector3[] vertices =
+        {
+            new Vector3 (0, 0, 0),
+            new Vector3 (1, 0, 0),
+            new Vector3 (1, 1, 0),
+            new Vector3 (0, 1, 0),
+            new Vector3 (0, 1, 1),
+            new Vector3 (1, 1, 1),
+            new Vector3 (1, 0, 1),
+            new Vector3 (0, 0, 1),
+        };
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            vertices[i] -= Vector3.one * 0.5f;
+        }
+
+        int[] triangles = 
+        {
+            0, 2, 1, //face front
+			0, 3, 2,
+            2, 3, 4, //face top
+			2, 4, 5,
+            1, 2, 5, //face right
+			1, 5, 6,
+            0, 7, 4, //face left
+			0, 4, 3,
+            5, 4, 7, //face back
+			5, 7, 6,
+            0, 6, 7, //face bottom
+			0, 1, 6
+        };
+
+        Mesh mesh = new Mesh();
+        mesh.Clear();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.RecalculateNormals();
+
+        return mesh;
+    }
 
     private void OnGUI()
     {
-        int index = 0;
-        foreach (var joycon in JoyconManager.Joycons)
+        for (int i = 0; i < JoyconManager.Joycons.Count; i++)
         {
-            GUILayout.Label("joycon " + index.ToString());
-            GUILayout.Label("\tIs Left: " + joycon.isLeft.ToString());
+            Joycon joycon = JoyconManager.Joycons[i];
+
+            GUILayout.Label("joycon " + i.ToString());
+            GUILayout.Label("\tType: " + joycon.Type);
             if (joycon.isLeft)
             {
-                GUILayout.Label("\tLeft: " + joycon.GetButton(Joycon.Button.DPAD_LEFT));
-                GUILayout.Label("\tRight: " + joycon.GetButton(Joycon.Button.DPAD_RIGHT));
-                GUILayout.Label("\tUp: " + joycon.GetButton(Joycon.Button.DPAD_UP));
-                GUILayout.Label("\tDown: " + joycon.GetButton(Joycon.Button.DPAD_DOWN));
+                GUILayout.Label("\tLeft: " + joycon.DPadLeft);
+                GUILayout.Label("\tRight: " + joycon.DPadRight);
+                GUILayout.Label("\tUp: " + joycon.DPadUp);
+                GUILayout.Label("\tDown: " + joycon.DPadDown);
             }
             else
             {
-                GUILayout.Label("\tY: " + joycon.GetButton(Joycon.Button.DPAD_LEFT));
-                GUILayout.Label("\tA: " + joycon.GetButton(Joycon.Button.DPAD_RIGHT));
-                GUILayout.Label("\tX: " + joycon.GetButton(Joycon.Button.DPAD_UP));
-                GUILayout.Label("\tB: " + joycon.GetButton(Joycon.Button.DPAD_DOWN));
+                GUILayout.Label("\tY: " + joycon.Y);
+                GUILayout.Label("\tA: " + joycon.A);
+                GUILayout.Label("\tX: " + joycon.X);
+                GUILayout.Label("\tB: " + joycon.B);
             }
-            GUILayout.Label("\tAccel: " + joycon.GetAccel());
-            GUILayout.Label("\tGyro: " + joycon.GetGyro());
-            GUILayout.Label("\tVector: " + joycon.GetVector().eulerAngles);
-            GUILayout.Label("\tVelocity: " + velocities[index].y);
+            GUILayout.Label("\tAccel: " + joycon.Acceleration);
+            GUILayout.Label("\tGyro: " + joycon.Gyro);
+            GUILayout.Label("\tVector: " + joycon.Rotation.eulerAngles);
 
-            index++;
+            float a = Vector3.Angle(Vector3.forward, joycon.Rotation * Vector3.forward);
+            a -= 90f;
+
+            GUILayout.Label("\tAngle: " + joycon.Euler.z);
         }
     }
 
     private void Update()
     {
-        if (lastVectors.Length != JoyconManager.Joycons.Count)
-        {
-            lastVectors = new Vector3[JoyconManager.Joycons.Count];
-            velocities = new Vector3[lastVectors.Length];
-        }
+        float size = 1.25f;
+        Vector3 start = Vector3.left * JoyconManager.Joycons.Count * -0.5f * size;
+        Vector3 end = Vector3.left * JoyconManager.Joycons.Count * 0.5f * size;
 
         for (int i = 0; i < JoyconManager.Joycons.Count; i++)
         {
-            var joycon = JoyconManager.Joycons[i];
-            velocities[i] = joycon.GetVector().eulerAngles - lastVectors[i];
-            lastVectors[i] = joycon.GetVector().eulerAngles;
+            Joycon joycon = JoyconManager.Joycons[i];
+            float t = i / (float)(JoyconManager.Joycons.Count - 1);
+            Vector3 position = Vector3.Lerp(start, end, t);
+
+            Graphics.DrawMesh(mesh, position, joycon.Rotation, material, 0);
+
+            Debug.DrawRay(position, joycon.Right, Color.red);
+            Debug.DrawRay(position, joycon.Up, Color.green);
+            Debug.DrawRay(position, joycon.Forward, Color.blue);
         }
     }
 }
