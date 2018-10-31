@@ -80,6 +80,23 @@ public class Player : MonoBehaviour
         rigidbody.velocity = Vector3.zero;
     }
 
+    public async void Knocked()
+    {
+        var joycon = JoyconManager.Joycons[joyconIndex];
+
+        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+
+        await Task.Delay(settings.duration);
+        await Task.Delay(30);
+
+        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+
+        await Task.Delay(settings.duration);
+        await Task.Delay(30);
+
+        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+    }
+
     private void SetColor()
     {
         //change color of material without instancing a new one
@@ -126,35 +143,5 @@ public class Player : MonoBehaviour
 
             Spawn();
         }
-    }
-
-    public float low = 0f;
-    public float high = 1f;
-    public float amp = 100f;
-    public int duration = 1;
-
-    private void OnGUI()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Beat();
-        }
-    }
-
-    private async void Beat()
-    {
-        var joycon = JoyconManager.Joycons[0];
-
-        joycon.SetRumble(low, high, amp, duration);
-
-        await Task.Delay(duration);
-        await Task.Delay(30);
-
-        joycon.SetRumble(low, high, amp, duration);
-
-        await Task.Delay(duration);
-        await Task.Delay(30);
-
-        joycon.SetRumble(low, high, amp, duration);
     }
 }

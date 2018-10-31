@@ -54,5 +54,7 @@ public class PlayerKick : MonoBehaviour
 
         Vector3 direction = (player.transform.position - transform.position).normalized * speed * knockbackMultiplier;
         rigidbody.velocity = direction;
+
+        player.Knocked();
     }
 }
