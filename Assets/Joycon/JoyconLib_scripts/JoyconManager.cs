@@ -59,7 +59,6 @@ public class JoyconManager : MonoBehaviour
 
             if (enumerate.product_id == product_l || enumerate.product_id == product_r)
             {
-                //Debug.Log(enumerate.serial_number + "\n" + enumerate.path + "\n" + enumerate.release_number);
                 if (enumerate.product_id == product_l)
                 {
                     isLeft = true;
@@ -76,7 +75,7 @@ public class JoyconManager : MonoBehaviour
                 }
                 IntPtr handle = HIDapi.hid_open_path(enumerate.path);
                 HIDapi.hid_set_nonblocking(handle, 1);
-                joycons.Add(new Joycon(handle, EnableIMU, EnableLocalize & EnableIMU, 0.05f, isLeft));
+                joycons.Add(new Joycon(handle, EnableIMU, EnableLocalize & EnableIMU, 0.05f, isLeft, enumerate.serial_number));
                 ++i;
             }
             ptr = enumerate.next;

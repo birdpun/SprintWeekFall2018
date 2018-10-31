@@ -60,7 +60,7 @@ public class Joycon
     private bool[] down_ = new bool[13];
     
     private float[] stick = { 0, 0 };
-
+    private string serialNumber;
     private
     IntPtr handle;
 
@@ -207,8 +207,9 @@ public class Joycon
     private byte global_count = 0;
     private string debug_str;
 
-    public Joycon(IntPtr handle_, bool imu, bool localize, float alpha, bool left)
+    public Joycon(IntPtr handle_, bool imu, bool localize, float alpha, bool left, string serialNumber)
     {
+        this.serialNumber = serialNumber;
         handle = handle_;
         imu_enabled = imu;
         do_localize = localize;
@@ -350,6 +351,14 @@ public class Joycon
         get
         {
             return acc_g;
+        }
+    }
+
+    public string SerialNumber
+    {
+        get
+        {
+            return serialNumber;
         }
     }
 

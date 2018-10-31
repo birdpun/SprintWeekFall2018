@@ -16,13 +16,40 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     public GameObject waiting;
+    public GameObject starting;
     public GameObject playing;
     public GameObject celebrating;
     public GameObject pause;
 
+    public Player red;
+    public Player blue;
+
     private bool paused;
+
+    [SerializeField]
     private GameState state = GameState.Waiting;
+
     private Player winner;
+
+    public static Player Red
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.red;
+        }
+    }
+
+    public static Player Blue
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.blue;
+        }
+    }
 
     public static bool Paused
     {
@@ -100,6 +127,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        instance = this;
+        State = GameState.Waiting;
+    }
+
+    private void OnEnable()
+    {
+        instance = this;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -111,8 +149,10 @@ public class GameManager : MonoBehaviour
         ProcessPause();
 
         if (waiting) waiting.SetActive(State == GameState.Waiting);
+        if (starting) starting.SetActive(State == GameState.Starting);
         if (playing) playing.SetActive(State == GameState.Playing);
         if (celebrating) celebrating.SetActive(State == GameState.Celebrating);
+
         if (pause) pause.SetActive(Paused);
     }
 
@@ -135,11 +175,12 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (allPressingX)
+            if (allPressingX && JoyconManager.Joycons.Count != 0)
             {
                 wantsToPlay = true;
             }
         }
+
         if (wantsToPlay)
         {
             Paused = false;
@@ -179,16 +220,6 @@ public class GameManager : MonoBehaviour
         if (State != GameState.Playing) return;
 
         bool wantsToPause = Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape);
-        if (!wantsToPause)
-        {
-            for (int i = 0; i < JoyconManager.Joycons.Count; i++)
-            {
-                if (JoyconManager.Joycons[i].Home || JoyconManager.Joycons[i].Capture)
-                {
-                    wantsToPause = true;
-                }
-            }
-        }
         if (wantsToPause)
         {
             Paused = !Paused;

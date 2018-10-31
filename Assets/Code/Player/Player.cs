@@ -19,9 +19,10 @@ public class Player : MonoBehaviour
     {
         get
         {
+            float steer = 0f;
             if (JoyconManager.Joycons.Count > joyconIndex)
             {
-                float steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
+                steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
                 float abs = Mathf.Abs(steer);
                 if (abs < 0.04f)
                 {
@@ -41,37 +42,38 @@ public class Player : MonoBehaviour
 
                 return steer;
             }
-            else
+
+            steer = 0f;
+            if (Input.GetKey(KeyCode.A)) steer -= 1f;
+            if (Input.GetKey(KeyCode.D)) steer += 1f;
+
+            if (joyconIndex == 1)
             {
-                float steer = 0f;
-                if (Input.GetKey(KeyCode.A)) steer -= 1f;
-                if (Input.GetKey(KeyCode.D)) steer += 1f;
-
-                if (joyconIndex == 1)
-                {
-                    if (Input.GetKey(KeyCode.LeftArrow)) steer -= 1f;
-                    if (Input.GetKey(KeyCode.RightArrow)) steer += 1f;
-                }
-
-                return steer;
+                steer = 0f;
+                if (Input.GetKey(KeyCode.LeftArrow)) steer -= 1f;
+                if (Input.GetKey(KeyCode.RightArrow)) steer += 1f;
             }
+
+            return steer;
         }
     }
 
     private Vector3 originalPosition;
+    private Vector3 originalRotation;
     private PlayerMovement movement;
 
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
         originalPosition = transform.position;
+        originalRotation = transform.eulerAngles;
 
         Reset();
     }
 
     public void Reset()
     {
-        lives = settings.lives + 1;
+        lives = settings.lives;
         Spawn();
     }
 
@@ -79,6 +81,20 @@ public class Player : MonoBehaviour
     {
         //dont respawn if celebrating
         if (GameManager.State == GameState.Celebrating) return;
+
+        //reset position and rotation
+        transform.position = originalPosition;
+        transform.localEulerAngles = originalRotation;
+
+        //reset velocity
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.velocity = Vector3.zero;
+
+        //dont subtract lives if not in play mode
+        if (GameManager.State != GameState.Playing) return;
+
+        lives--;
 
         //this player ran out of lives
         //end the game
@@ -100,44 +116,39 @@ public class Player : MonoBehaviour
             GameManager.Celebrate(winner);
             return;
         }
-
-        //reset position and rotation
-        transform.position = originalPosition;
-        transform.localEulerAngles = Vector3.zero;
-
-        //reset velocity
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.angularVelocity = Vector3.zero;
-        rigidbody.velocity = Vector3.zero;
-
-
-        //dont subtract lives if not in play mode
-        if (GameManager.State != GameState.Playing) return;
-
-        lives--;
     }
 
     public void ShakeSingle()
     {
-        var joycon = JoyconManager.Joycons[joyconIndex];
-        joycon.SetRumble(settings.low, settings.high, settings.amp, 300);
+        if (GameManager.State != GameState.Playing) return;
+
+        if (JoyconManager.Joycons.Count > joyconIndex)
+        {
+            var joycon = JoyconManager.Joycons[joyconIndex];
+            joycon.SetRumble(settings.low, settings.high, settings.amp, 300);
+        }
     }
 
     public async void Shake()
     {
-        var joycon = JoyconManager.Joycons[joyconIndex];
+        if (GameManager.State != GameState.Playing) return;
 
-        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+        if (JoyconManager.Joycons.Count > joyconIndex)
+        {
+            var joycon = JoyconManager.Joycons[joyconIndex];
 
-        await Task.Delay(settings.duration);
-        await Task.Delay(30);
+            joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
 
-        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+            await Task.Delay(settings.duration);
+            await Task.Delay(30);
 
-        await Task.Delay(settings.duration);
-        await Task.Delay(30);
+            joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
 
-        joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+            await Task.Delay(settings.duration);
+            await Task.Delay(30);
+
+            joycon.SetRumble(settings.low, settings.high, settings.amp, settings.duration);
+        }
     }
 
     private void SetColor()
@@ -167,8 +178,13 @@ public class Player : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            //only process rotation if grounded
-            if (movement.Grounded) SetRotation();
+            if (GameManager.State == GameState.Starting)
+            {
+                transform.position = originalPosition;
+                transform.localEulerAngles = originalRotation;
+            }
+
+            SetRotation();
         }
     }
 

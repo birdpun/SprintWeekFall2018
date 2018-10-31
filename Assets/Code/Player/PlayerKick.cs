@@ -56,5 +56,8 @@ public class PlayerKick : MonoBehaviour
         rigidbody.velocity = direction;
 
         player.Shake();
+
+        //ask the camera to shake as well
+        CameraManager.Shake();
     }
 }

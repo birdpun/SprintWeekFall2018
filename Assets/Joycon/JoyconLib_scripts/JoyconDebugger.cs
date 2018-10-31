@@ -64,6 +64,7 @@ public class JoyconDebugger : MonoBehaviour
             Joycon joycon = JoyconManager.Joycons[i];
 
             string name = "Joycon " + i;
+            name += " " + joycon.SerialNumber;
             GUILayout.Label(name);
             GUILayout.Label("\tType: " + joycon.Type);
             if (joycon.isLeft)
