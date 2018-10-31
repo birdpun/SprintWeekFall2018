@@ -14,6 +14,6 @@ MonoBehaviour:
   respawnDuration: 1
   moveSpeed: 14
   moveAcceleration: 1
-  steerSpeed: 391.8
-  steerAcceleration: 46.29
+  steerSpeed: 320
+  steerAcceleration: 100
   steerDeceleration: 20

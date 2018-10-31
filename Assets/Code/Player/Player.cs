@@ -19,7 +19,23 @@ public class Player : MonoBehaviour
         get
         {
             float steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
-            steer = Mathf.Clamp(steer * 5f, -1f, 1f);
+            float abs = Mathf.Abs(steer);
+            if (abs < 0.04f)
+            {
+                steer = 0f;
+            }
+            else
+            {
+                if (abs > 0.15f)
+                {
+                    steer = Mathf.Sign(steer);
+                }
+                else
+                {
+                    steer = Mathf.Sign(steer) * 0.5f;
+                }
+            }
+
             return steer;
         }
     }
@@ -107,18 +123,18 @@ public class Player : MonoBehaviour
 
     private async void Beat()
     {
-        var joycon = JoyconManager.Joycons;
+        var joycon = JoyconManager.Joycons[0];
 
-        //joycon.SetRumble(low, high, amp, duration);
-
-        await Task.Delay(duration);
-        await Task.Delay(30);
-
-        //joycon.SetRumble(low, high, amp, duration);
+        joycon.SetRumble(low, high, amp, duration);
 
         await Task.Delay(duration);
         await Task.Delay(30);
 
-        //joycon.SetRumble(low, high, amp, duration);
+        joycon.SetRumble(low, high, amp, duration);
+
+        await Task.Delay(duration);
+        await Task.Delay(30);
+
+        joycon.SetRumble(low, high, amp, duration);
     }
 }
