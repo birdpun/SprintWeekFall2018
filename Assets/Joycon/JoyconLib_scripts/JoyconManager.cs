@@ -25,6 +25,7 @@ public class JoyconManager : MonoBehaviour
         get
         {
             if (!instance) instance = FindObjectOfType<JoyconManager>();
+            if (!instance || instance.joycons == null) return new List<Joycon>();
 
             return instance.joycons;
         }

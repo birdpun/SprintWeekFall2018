@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class Player : MonoBehaviour
 {
     public PlayerSettings settings;
@@ -18,25 +17,42 @@ public class Player : MonoBehaviour
     {
         get
         {
-            float steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
-            float abs = Mathf.Abs(steer);
-            if (abs < 0.04f)
+            if (JoyconManager.Joycons.Count > joyconIndex)
             {
-                steer = 0f;
-            }
-            else
-            {
-                if (abs > 0.15f)
+                float steer = (90f - JoyconManager.Joycons[joyconIndex].Euler.z) / 180f;
+                float abs = Mathf.Abs(steer);
+                if (abs < 0.04f)
                 {
-                    steer = Mathf.Sign(steer);
+                    steer = 0f;
                 }
                 else
                 {
-                    steer = Mathf.Sign(steer) * 0.5f;
+                    if (abs > 0.15f)
+                    {
+                        steer = Mathf.Sign(steer);
+                    }
+                    else
+                    {
+                        steer = Mathf.Sign(steer) * 0.5f;
+                    }
                 }
-            }
 
-            return steer;
+                return steer;
+            }
+            else
+            {
+                float steer = 0f;
+                if (Input.GetKey(KeyCode.A)) steer -= 1f;
+                if (Input.GetKey(KeyCode.D)) steer += 1f;
+
+                if (joyconIndex == 1)
+                {
+                    if (Input.GetKey(KeyCode.LeftArrow)) steer -= 1f;
+                    if (Input.GetKey(KeyCode.RightArrow)) steer += 1f;
+                }
+
+                return steer;
+            }
         }
     }
 
@@ -85,12 +101,16 @@ public class Player : MonoBehaviour
         transform.localEulerAngles = euler;
     }
 
+    [ExecuteInEditMode]
     private void Update()
     {
         SetColor();
 
-        //only process rotation if grounded
-        if (movement.Grounded) SetRotation();
+        if (Application.isPlaying)
+        {
+            //only process rotation if grounded
+            if (movement.Grounded) SetRotation();
+        }
     }
 
     private async void OnTriggerEnter(Collider other)
