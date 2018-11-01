@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   respawnDuration: 1
+  lives: 5
   moveSpeed: 14
   moveAcceleration: 1
   steerSpeed: 320
   steerAcceleration: 100
   steerDeceleration: 20
+  low: 0
+  high: 1
+  amp: 100
+  duration: 200
