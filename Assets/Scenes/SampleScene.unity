@@ -1907,7 +1907,7 @@ MonoBehaviour:
   whale: {fileID: 1019654793148358, guid: d7bd63ba4653d4348be120ca3ab1735b, type: 2}
   red: {fileID: 2081472664}
   blue: {fileID: 2122311682}
-  state: 0
+  state: 2
 --- !u!1 &954642412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,13 +3603,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1497650164}
-  m_LocalRotation: {x: -0.10833413, y: -0.61689013, z: -0.08625803, w: 0.7747709}
-  m_LocalPosition: {x: 0.49155214, y: -6.241, z: -12.838386}
+  m_LocalRotation: {x: -0.100739665, y: -0.54992473, z: -0.09501709, w: 0.8236541}
+  m_LocalPosition: {x: 0.54, y: -6.26, z: -12.9}
   m_LocalScale: {x: 2.6750593, y: 1.700508, z: 2.1201258}
   m_Children: []
   m_Father: {fileID: 1031286141}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -15.920001, y: -77.055, z: 0}
+  m_LocalEulerAnglesHint: {x: -15.691001, y: -67.084, z: -2.7220001}
 --- !u!114 &1497650166
 MonoBehaviour:
   m_ObjectHideFlags: 0
