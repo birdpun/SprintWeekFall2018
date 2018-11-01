@@ -11,7 +11,7 @@ public class MenuCelebrating : MonoBehaviour
     {
         if (GameManager.Winner)
         {
-            text.text = GameManager.Winner.name+" won!";
+            text.text = GameManager.Winner.name+" wins!";
         }
         else
         {
