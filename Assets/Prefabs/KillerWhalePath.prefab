@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4491419584928692}
   - component: {fileID: 95054643775615144}
   - component: {fileID: 114956239326477216}
+  - component: {fileID: 114062338291700830}
+  - component: {fileID: 136477471229950002}
   m_Layer: 0
   m_Name: KillerWhalePath
   m_TagString: Untagged
@@ -1067,6 +1069,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114062338291700830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1019654793148358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8573e5d5efc814ca9590ec30590b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 25
 --- !u!114 &114956239326477216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1079,6 +1093,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95426259831602892}
+--- !u!136 &136477471229950002
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1019654793148358}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2.77
+  m_Height: 8.31
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137935071305127940
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
