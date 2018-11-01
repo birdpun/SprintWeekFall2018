@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     private Vector3 originalPosition;
     private Vector3 originalRotation;
     private PlayerMovement movement;
+    private bool died;
 
     private void Awake()
     {
@@ -85,6 +86,8 @@ public class Player : MonoBehaviour
         //reset position and rotation
         transform.position = originalPosition;
         transform.localEulerAngles = originalRotation;
+
+        died = true;
 
         //reset velocity
         Rigidbody rigidbody = GetComponent<Rigidbody>();
@@ -190,11 +193,14 @@ public class Player : MonoBehaviour
 
     private async void OnTriggerEnter(Collider other)
     {
+        if (died) return;
         if (GameManager.State == GameState.Starting) return;
 
         //if hit water, wait 1 seconds and then respawn
         if (other.name == "Water")
         {
+            died = true;
+
             Shake();
             int ms = Mathf.RoundToInt(settings.respawnDuration * 1000f);
             await Task.Delay(ms);

@@ -11,9 +11,14 @@ public enum GameState
     Celebrating
 }
 
+public class ClampedCurveAttribute : PropertyAttribute { }
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+
+    public float celebrateDuration = 7f;
+    public int startDuration = 5;
 
     public GameObject waiting;
     public GameObject starting;
@@ -21,14 +26,14 @@ public class GameManager : MonoBehaviour
     public GameObject celebrating;
     public GameObject pause;
 
+    public GameObject confetti;
     public GameObject whale;
 
     public Player red;
     public Player blue;
 
     private bool paused;
-
-    [SerializeField]
+    private float startTime;
     private GameState state = GameState.Waiting;
 
     private Player winner;
@@ -40,6 +45,16 @@ public class GameManager : MonoBehaviour
             if (!instance) instance = FindObjectOfType<GameManager>();
 
             return instance.whale;
+        }
+    }
+
+    public static GameObject Confetti
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.confetti;
         }
     }
 
@@ -107,21 +122,57 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static int CountdownSecond
+    public static float StartTime
     {
-        get; set;
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.startTime;
+        }
+        set
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            instance.startTime = value;
+        }
+    }
+
+    public static int StartDuration
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.startDuration;
+        }
+    }
+
+    public static float CelebrateDuration
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.celebrateDuration;
+        }
     }
 
     public static async void Celebrate(Player winner)
     {
         if (!instance) instance = FindObjectOfType<GameManager>();
 
+        //spawn effect at winner
+        GameObject go = Instantiate(Confetti, CameraManager.Transform.position, Quaternion.identity);
+        Destroy(go, 10f);
+
         instance.winner = winner;
         State = GameState.Celebrating;
-        Time.timeScale = 0.4f;
+        Time.timeScale = 0.5f;
 
         //8 seconds later, go back to wait state
-        await Task.Delay(8000);
+        int ms = Mathf.RoundToInt(instance.celebrateDuration * 1000f);
+        await Task.Delay(ms);
 
         Time.timeScale = 1f;
         State = GameState.Waiting;
@@ -152,6 +203,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (State == GameState.Starting)
+        {
+            StartTime += Time.deltaTime;
+            if (StartTime > StartDuration)
+            {
+                State = GameState.Playing;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             ShakeAll();
@@ -195,13 +255,7 @@ public class GameManager : MonoBehaviour
 
         if (wantsToPlay)
         {
-            Paused = false;
-            State = GameState.Starting;
-
-            //reset players
-            ResetPlayers();
-
-            StartCountdown(5);
+            StartGame();
         }
     }
 
@@ -213,18 +267,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private async void StartCountdown(int seconds)
+    public void StartGame()
     {
-        CountdownSecond = seconds;
-        for (int i = 0; i < seconds; i++)
-        {
-            ShakeAll();
-            await Task.Delay(1000);
-            CountdownSecond--;
-        }
+        if (!instance) instance = FindObjectOfType<GameManager>();
 
-        CountdownSecond = 0;
-        State = GameState.Playing;
+        //reset players
+        ResetPlayers();
+        Paused = false;
+        State = GameState.Starting;
+        StartTime = 0f;
     }
 
     private void ProcessPause()
