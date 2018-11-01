@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -35,16 +35,16 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44244578, g: 0.4915133, b: 0.57136613, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 10
@@ -558,13 +558,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 170076733}
-  m_LocalRotation: {x: 0.10689678, y: 0.8400334, z: -0.5007604, w: 0.17932104}
+  m_LocalRotation: {x: -0.021442108, y: 0.8582065, z: -0.5115937, w: -0.035969477}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1763998640}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 61.6, y: 155.9, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.6, y: 184.8, z: 0}
 --- !u!1 &186819328
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +625,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 91497e0ab148f4341bf296ca479ce529, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2820,7 +2820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8573e5d5efc814ca9590ec30590b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 15
+  force: 20
 --- !u!65 &1304761989
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3352,7 +3352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8573e5d5efc814ca9590ec30590b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 15
+  force: 20
 --- !u!65 &1457112648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3702,7 +3702,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1497650164}
   m_LocalRotation: {x: -0.10778678, y: -0.611981, z: -0.08694103, w: 0.7786544}
-  m_LocalPosition: {x: 0.5399991, y: -6.2599998, z: -12.899997}
+  m_LocalPosition: {x: 0.664, y: -6.296, z: -12.93}
   m_LocalScale: {x: 2.6750593, y: 1.700508, z: 2.1201258}
   m_Children: []
   m_Father: {fileID: 1031286141}
@@ -4809,7 +4809,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 91497e0ab148f4341bf296ca479ce529, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5166,6 +5166,10 @@ Prefab:
     - target: {fileID: 4491419584928692, guid: d7bd63ba4653d4348be120ca3ab1735b, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896409702907272, guid: d7bd63ba4653d4348be120ca3ab1735b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7bd63ba4653d4348be120ca3ab1735b, type: 2}

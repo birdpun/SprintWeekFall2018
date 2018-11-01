@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isGrounded)
+        //if (isGrounded)
         {
             rb.AddForce(Physics.gravity);
         }

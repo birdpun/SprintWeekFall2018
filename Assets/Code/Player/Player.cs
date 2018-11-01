@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         transform.position = originalPosition;
         transform.localEulerAngles = originalRotation;
 
-        died = true;
+        died = false;
 
         //reset velocity
         Rigidbody rigidbody = GetComponent<Rigidbody>();

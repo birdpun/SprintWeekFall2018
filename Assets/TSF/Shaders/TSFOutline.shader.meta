@@ -1,9 +1,12 @@
 fileFormatVersion: 2
-guid: 83df6154e01d6cd498ee51b5c8387fa2
+guid: 76374158b4c4e5744b394e9290aae693
+labels:
+- cellshading
+- cell
+- toon
+- toonshader
 ShaderImporter:
-  externalObjects: {}
   defaultTextures: []
-  nonModifiableTextures: []
   userData: 
   assetBundleName: 
   assetBundleVariant: 
