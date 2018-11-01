@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject celebrating;
     public GameObject pause;
 
+    public GameObject whale;
+
     public Player red;
     public Player blue;
 
@@ -30,6 +32,16 @@ public class GameManager : MonoBehaviour
     private GameState state = GameState.Waiting;
 
     private Player winner;
+
+    public static GameObject Whale
+    {
+        get
+        {
+            if (!instance) instance = FindObjectOfType<GameManager>();
+
+            return instance.whale;
+        }
+    }
 
     public static Player Red
     {

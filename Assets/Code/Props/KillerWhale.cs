@@ -8,7 +8,15 @@ public class KillerWhale : MonoBehaviour
 
     public void Jump()
     {
-        animator.SetBool("jumping", true);
-        Debug.Log("Jump");
+        animator.Play("Jump");
+    }
+
+    public void StopJump()
+    {
+        //if(animator.GetBool("jumping") == true)
+        {
+            Destroy(gameObject);
+            Instantiate(GameManager.Whale);
+        }
     }
 }
