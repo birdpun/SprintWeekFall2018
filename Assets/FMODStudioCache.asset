@@ -15,19 +15,17 @@ MonoBehaviour:
   - {fileID: 114600448586989956}
   - {fileID: 114284665362455512}
   EditorEvents:
-  - {fileID: 114825648442394382}
-  - {fileID: 114958162944020252}
   - {fileID: 114903055134191548}
   - {fileID: 114681865073015116}
-  - {fileID: 114783797790663072}
-  - {fileID: 114127458506629072}
   - {fileID: 114984154144239226}
-  - {fileID: 114051133378386870}
   - {fileID: 114541272933413698}
-  - {fileID: 114296459189220544}
+  - {fileID: 114347474594435434}
+  - {fileID: 114930476586593470}
+  - {fileID: 114411790533157764}
+  - {fileID: 114338756894302324}
   MasterBankRef: {fileID: 114284665362455512}
   StringsBankRef: {fileID: 114600448586989956}
-  stringsBankWriteTime: 636766950192977753
+  stringsBankWriteTime: 636767037076232438
   cacheVersion: 2
 --- !u!114 &114051133378386870
 MonoBehaviour:
@@ -86,11 +84,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\nordlund\Documents\GitHub\SprintWeekFall2018\Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master
     Bank.bank
-  lastModified: 636766950192937549
+  lastModified: 636767037076162465
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 777344
+    Value: 2455648
   Exists: 1
 --- !u!114 &114296459189220544
 MonoBehaviour:
@@ -114,6 +112,72 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 38765
+--- !u!114 &114338756894302324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/HealthDown
+  guid: c1464571d5e1154587648600a00e542f
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 293
+--- !u!114 &114347474594435434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/GameplayBgm
+  guid: 3b50ed86053a3b498da4feff8cbbdeb6
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 46550
+--- !u!114 &114411790533157764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/CrowdCheer
+  guid: d9a15af9f810bf4b8e7a49fbfdc36dd7
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 10297
 --- !u!114 &114541272933413698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,13 +193,13 @@ MonoBehaviour:
   guid: 9ec3f01c5cebcb478a9ce7799bb0925d
   Banks:
   - {fileID: 114284665362455512}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 7784
+  Length: 118256
 --- !u!114 &114562476982526414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,11 +233,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636766950192977753
+  lastModified: 636767037076232438
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1088
+    Value: 1046
   Exists: 1
 --- !u!114 &114681865073015116
 MonoBehaviour:
@@ -284,6 +348,28 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2518
+--- !u!114 &114930476586593470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Bump
+  guid: cb2b7af12a0d544a992983c1937884fa
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 820
 --- !u!114 &114958162944020252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,4 +413,4 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 626
+  Length: 450

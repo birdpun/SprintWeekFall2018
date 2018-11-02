@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event: event:/StartMenu
   PlayEvent: 11
-  StopEvent: 0
+  StopEvent: 12
   CollisionTag: 
   AllowFadeout: 1
   TriggerOnce: 0
@@ -2137,8 +2137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8fa749bc741c649894ea6364a7a24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celebrateDuration: 10
-  startDuration: 5
+  celebrateDuration: 7
+  startDuration: 3
   waiting: {fileID: 393365466}
   starting: {fileID: 1487571561}
   playing: {fileID: 1538887954}
@@ -3403,7 +3403,7 @@ Prefab:
     - target: {fileID: 114457798411653216, guid: ca4948300e684074fb48eaf3fc2f133f,
         type: 2}
       propertyPath: lives
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca4948300e684074fb48eaf3fc2f133f, type: 2}
@@ -3528,6 +3528,7 @@ GameObject:
   - component: {fileID: 1453310123}
   - component: {fileID: 1453310122}
   - component: {fileID: 1453310121}
+  - component: {fileID: 1453310125}
   m_Layer: 5
   m_Name: Celebrating
   m_TagString: Untagged
@@ -3623,6 +3624,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1453310125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1453310119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/CrowdCheer
+  PlayEvent: 11
+  StopEvent: 12
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1457112646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3949,7 +3972,6 @@ GameObject:
   - component: {fileID: 1487571564}
   - component: {fileID: 1487571563}
   - component: {fileID: 1487571567}
-  - component: {fileID: 1487571568}
   m_Layer: 5
   m_Name: Starting
   m_TagString: Untagged
@@ -4058,28 +4080,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event: event:/GameStartAirhorn
   PlayEvent: 12
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!114 &1487571568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1487571561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/BgmGameplay
-  PlayEvent: 11
   StopEvent: 0
   CollisionTag: 
   AllowFadeout: 1
@@ -4323,6 +4323,7 @@ GameObject:
   - component: {fileID: 1538887957}
   - component: {fileID: 1538887956}
   - component: {fileID: 1538887959}
+  - component: {fileID: 1538887960}
   m_Layer: 5
   m_Name: Playing
   m_TagString: Untagged
@@ -4420,6 +4421,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBlue: {fileID: 1201903769}
   textRed: {fileID: 763145286}
+--- !u!114 &1538887960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1538887954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/GameplayBgm
+  PlayEvent: 11
+  StopEvent: 12
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1603454799
 GameObject:
   m_ObjectHideFlags: 0
@@ -4616,7 +4639,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5
+  m_Text: 3
 --- !u!222 &1651500403
 CanvasRenderer:
   m_ObjectHideFlags: 0
