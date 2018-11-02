@@ -13,8 +13,6 @@ public class MenuCelebrating : MonoBehaviour
         {
             text.text = GameManager.Winner.name+" wins!";
 
-            FMODUnity.RuntimeManager.CreateInstance("event:/Audience").start();
-
         }
         else
         {
