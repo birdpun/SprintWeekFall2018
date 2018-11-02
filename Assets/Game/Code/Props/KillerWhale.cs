@@ -9,6 +9,7 @@ public class KillerWhale : MonoBehaviour
     public void Jump()
     {
         animator.Play("Jump");
+        
     }
 
     public void StopJump()
@@ -18,5 +19,14 @@ public class KillerWhale : MonoBehaviour
             Destroy(gameObject);
             Instantiate(GameManager.Whale, new Vector3(54.6f, -2f, 3f), Quaternion.identity);
         }
+    }
+
+    public void DiveSound()
+    {
+        FMODUnity.RuntimeManager.CreateInstance("event:/WhaleDive").start();
+    }
+    public void UpSound()
+    {
+        FMODUnity.RuntimeManager.CreateInstance("event:/WhaleUp").start();
     }
 }

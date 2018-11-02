@@ -23,9 +23,12 @@ MonoBehaviour:
   - {fileID: 114930476586593470}
   - {fileID: 114411790533157764}
   - {fileID: 114338756894302324}
+  - {fileID: 114264581894881814}
+  - {fileID: 114985836815132282}
+  - {fileID: 114901896645856056}
   MasterBankRef: {fileID: 114284665362455512}
   StringsBankRef: {fileID: 114600448586989956}
-  stringsBankWriteTime: 636767037076232438
+  stringsBankWriteTime: 636767266801210624
   cacheVersion: 2
 --- !u!114 &114051133378386870
 MonoBehaviour:
@@ -71,6 +74,28 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 626
+--- !u!114 &114264581894881814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Boost
+  guid: 5a7a6b9e0ef3844fb4a3f6c05f258ce9
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1140
 --- !u!114 &114284665362455512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,11 +109,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\nordlund\Documents\GitHub\SprintWeekFall2018\Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master
     Bank.bank
-  lastModified: 636767037076162465
+  lastModified: 636767266801170911
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 2455648
+    Value: 2552480
   Exists: 1
 --- !u!114 &114296459189220544
 MonoBehaviour:
@@ -233,11 +258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636767037076232438
+  lastModified: 636767266801210624
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1046
+    Value: 1178
   Exists: 1
 --- !u!114 &114681865073015116
 MonoBehaviour:
@@ -326,6 +351,28 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 6560
+--- !u!114 &114901896645856056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/WhaleDive
+  guid: d38343d7ff5d8f4cabc3fd44b0e9e591
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2179
 --- !u!114 &114903055134191548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,3 +461,25 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 450
+--- !u!114 &114985836815132282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/WhaleUp
+  guid: 628c62d1b579d741bd33d2148070aa85
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1989

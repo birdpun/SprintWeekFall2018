@@ -11,6 +11,10 @@ public class SpeedBoost : MonoBehaviour
         PlayerMovement playerMovement = other.GetComponentInParent<PlayerMovement>();
         if (playerMovement)
         {
+            if (gameObject.tag == "Enviroboost")
+            {
+                FMODUnity.RuntimeManager.CreateInstance("event:/Boost").start();
+            }
             Rigidbody rigidbody = playerMovement.GetComponent<Rigidbody>();
             rigidbody.velocity = transform.forward * force;
         }
