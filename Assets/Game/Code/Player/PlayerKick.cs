@@ -56,6 +56,7 @@ public class PlayerKick : MonoBehaviour
         rigidbody.velocity = direction;
 
         player.Shake();
+        FMODUnity.RuntimeManager.CreateInstance("event:/Bump").start();
 
         //ask the camera to shake as well
         CameraManager.Shake();

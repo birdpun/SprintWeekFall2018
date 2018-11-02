@@ -16,6 +16,7 @@ public class MenuStarting : MonoBehaviour
         {
             lastText = text.text;
             text.rectTransform.localScale = Vector3.one * 1.5f;
+            FMODUnity.RuntimeManager.CreateInstance("event:/Countdown1").start();
         }
 
         //slowly settle to 1, 1, 1

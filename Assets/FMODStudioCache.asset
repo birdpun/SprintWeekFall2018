@@ -23,9 +23,11 @@ MonoBehaviour:
   - {fileID: 114127458506629072}
   - {fileID: 114984154144239226}
   - {fileID: 114051133378386870}
+  - {fileID: 114541272933413698}
+  - {fileID: 114296459189220544}
   MasterBankRef: {fileID: 114284665362455512}
   StringsBankRef: {fileID: 114600448586989956}
-  stringsBankWriteTime: 636766898540020590
+  stringsBankWriteTime: 636766950192977753
   cacheVersion: 2
 --- !u!114 &114051133378386870
 MonoBehaviour:
@@ -39,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: event:/Audience
-  guid: 0921a411acc9f24ba2406fd78994978a
+  guid: 62ab5df3c99bee46b54a5e58a66f8691
   Banks:
   - {fileID: 114284665362455512}
   IsStream: 0
@@ -48,7 +50,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 0
+  Length: 7248
 --- !u!114 &114127458506629072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,12 +86,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\nordlund\Documents\GitHub\SprintWeekFall2018\Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master
     Bank.bank
-  lastModified: 636766898540007931
+  lastModified: 636766950192937549
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 129120
+    Value: 777344
   Exists: 1
+--- !u!114 &114296459189220544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/BgmGameplay
+  guid: d7310129efe4224c949a7dce8cc1e1c0
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 38765
+--- !u!114 &114541272933413698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/StartMenu
+  guid: 9ec3f01c5cebcb478a9ce7799bb0925d
+  Banks:
+  - {fileID: 114284665362455512}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 7784
 --- !u!114 &114562476982526414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,11 +169,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\Audio\FmodProject\SledFmodProj\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636766898540020590
+  lastModified: 636766950192977753
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 996
+    Value: 1088
   Exists: 1
 --- !u!114 &114681865073015116
 MonoBehaviour:
