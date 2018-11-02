@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
         //dont subtract lives if not in play mode
         if (GameManager.State != GameState.Playing) return;
 
+        FMODUnity.RuntimeManager.CreateInstance("event:/HealthDown").start();
         lives--;
 
         //this player ran out of lives
